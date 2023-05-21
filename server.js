@@ -6,7 +6,6 @@ const cors = require('cors');
 const app = express();
 const port = 3001;
 
-// Connect to MongoDB
 mongoose.connect('mongodb://localhost/nmap', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -18,7 +17,6 @@ mongoose.connect('mongodb://localhost/nmap', {
     console.error('Failed to connect to MongoDB:', error);
   });
 
-// Define the Request schema
 const requestSchema = new mongoose.Schema({
   options: {
     type: String,
@@ -38,14 +36,12 @@ const requestSchema = new mongoose.Schema({
   },
 });
 
-// Create the Request model
 const Request = mongoose.model('Request', requestSchema);
 
 app.use(cors());
 app.use(express.json());
 
 app.post('/', (req, res) => {
-  // Retrieve options and IP address from the request body
   const options = req.body.options;
   const ipAddress = req.body.ip;
 
